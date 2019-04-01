@@ -1,0 +1,42 @@
+BASE 10
+Positional Values of the Decimal Number 9162.35 
+Digits			9		1		6		2		.	3		5
+Powers of Ten	10^3	10^2	10^1	10^0	 	10^–1	10^–2
+Products		9000	100		60		2	 		0.3		0.05
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Sum of Products	    9162.35
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+BASE 2 (Binary)
+Converting a Binary Number to a Decimal Number
+Digits			1	1	0	0	1	0	.	0		1
+Powers of Two	2^5	2^4	2^3	2^2	2^1	2^0	 	2^–1	2^–2
+Products		32	16	0	0	2	0	 	0		0.25
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Sum of Products	   50.25
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+BASE 8 (Octal)
+Converting an Octal Number to a Decimal Number
+
+Digits			1	0	5	.	2
+Powers of Eight	8^2	8^1	8^0	 	8^–1
+Products		64	0	5	 	.25
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Sum of Products	  69.25
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+
+BASE 16 (Hexadecimal)
+Converting a Hexadecimal Number to a Decimal Number
+
+Digits				2		2		E		.	6
+Powers of Sixteen	16^2	16^1	16^0	 	16^–1
+Products			512		32		14	 		.375
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+Sum of Products	  558.375
