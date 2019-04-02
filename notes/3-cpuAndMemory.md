@@ -181,7 +181,7 @@
 - Memory is built from RAM chips
 - 4M x 16 memory means:
   - memory is 4M long and 16 bits wide
-  - each word is 16 bits and up to 4M words can be held in memory
+  - word = 16 bits, 4M words
   - We would need 2^22 addresses
     - start at 0, end at ((2^22) - 1)
       - Amount of bits required for memory address:  22
@@ -220,3 +220,119 @@
 ## ii. MARIE (Machine Architecture that is Really Intuitive and Easy)
 
 ### ii-1 The Architecture
+- Binary 2's complement
+- Store program, fixed word length
+- Word addressable
+- 4K words of main memory
+  - 12 bits per address (2^10 * 2^2 = 2^12)
+- Words have 16 bits
+- 16-bit instructions
+  - 4 bits for opcode
+  - 12 bits for the address
+- 16-bit accumulator (AC)
+- 16-bit instruction register (IR)
+- 16-bit memory buffer register (MBR)
+- 12-bit program counter (PC)
+- 12-bit memory address register (MAR)
+- 8-bit input register
+- 8-bit output register
+
+
+### ii-2 Registers and Buses
+
+In MARIE, 7 register locations:
+  1. **AC** - the accumulator.
+      - holds data values CPU needs to process
+      - general purpose
+  2. **MAR** - holds memory address of data being referenced
+  3. **MBR** - holds data just read from memory or ready to be written to memory
+  4. **PC** - holds address of next instruction
+  5. **IR** - holds next instruction
+  6. **InREG** - holds data from input device
+  7. **OutREG** - holds data for output device
+
+
+### ii-3 Instruction Set Architecture (ISA)
+
+- Specifies instructions computer can perform
+- Interface between SW and HW
+- For MARIE instruction set is:
+  - Bits 12-15 = Opcode
+  - Bits 0-11  = Address
+  - eg:  0001 0000 0000 1101 means perform opcode 0001 at address 1101
+- MARIE Instruction Set
+  - `0001` - **Load X**
+    - Load the contents of address X into AC.
+  - `0010` - **Store X**
+    - Store the contents of AC at address X.
+  - `0011` - **Add X**
+    - Add the contents of address X to AC and store the result in AC.
+  - `0100` - **Subt X**
+    - Subtract the contents of address X from AC and store the result in AC.
+  - `0101` - **Input**
+    - Input a value from the keyboard into AC.
+  - `0110` - **Output**
+    - Output the value in AC to the display.
+  - `0111` - **Halt**
+    - Terminate the program.
+  - `1000` - **Skipcond**
+    - Skip the next instruction on condition.
+  - `1001` - **Jump X**
+    - Load the value of X into PC.
+
+
+### ii-4 Register Transfer Notation
+- An instruction may involve multiple operations
+  - e.g.: `Load`:  first address from instruction must be loaded in MAR; then data in memory at this location must be loaded into the MBR; then MBR must be loaded in the AC -- all this to load contents of given mem location into AC register
+  - These mini-instructions are called _microoperations_
+- Notation for microoperations is _Register Transfer Notation (RTN)_
+  - `M[X]` indicates actual data stored at location `X` in memory
+  - `<-` indicates a transfer of info
+
+#### RTN for instructions of MARIE
+- **Load X**
+  - _Note instructions on different lines cannot be exec'd in same cycle_
+```
+MAR <- X
+MBR <- M[MAR], AC <- MBR
+```
+- **Store X**
+```
+MAR <- X, MBR <- AC
+M[MAR] <- MBR
+```
+- **Add X**
+```
+MAR <- X
+MBR <- M[MAR]
+AC <- AC + MBR
+```
+- **Subt X**
+```
+MAR <- X
+MBR <- M[MAR]
+AC <- AC – MBR
+```
+- **Input**
+```
+AC <- InREG
+```
+- **Output**
+```
+OutREG <- AC
+```
+- **Halt**
+  - No ops. Machine just stops execution.
+- **Skipcond**
+```
+if IR[11–10] = 00 then           {if bits 10 and 11 in the IR are both 0}
+    If AC < 0 then PC <- PC+1
+else If IR[11–10] = 01 then      {if bit 11 = 0 and bit 10 = 1}
+    If AC = 0 then PC <- PC + 1
+else If IR[11–10] = 10 then      {if bit 11 = 1 and bit 10 = 0}
+    If AC > 0 then PC <- PC + 1
+```
+- **Jump X**
+```
+PC <- X
+```
