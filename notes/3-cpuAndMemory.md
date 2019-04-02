@@ -336,3 +336,45 @@ else If IR[11–10] = 10 then      {if bit 11 = 1 and bit 10 = 0}
 ```
 PC <- X
 ```
+
+
+## iii. Instruction Processing
+
+### iii-1 The Fetch-Decode-Execute Cycle
+- The steps a computer takes to run a program:
+  1. `MAR <- PC` Copy contents of the PC to the MAR
+  2. `IR <- M[MAR]` Fetch instruction in memory at address in MAR and place instruction in IR
+      - `PC <- PC+1` increment PC 
+          - PC now points to next instruction in program
+          - PC only incremented by 1 in example because MARIE is word addressable
+          - if byte addressable, increment by 2 since 16-bit system (+ by 4 if 32 bit...)
+  3. `MAR <- IR[11-0]` Copy rightmost 12 bits (address) of IR into MAR
+      - `decode IR[15-12]` decode leftmost 4 bits for opcode
+  4. If needed: `MBR <- M[MAR]` use address in MAR to get data from memory and put data into MBR, execute
+- Summary of steps:
+    ```
+    MAR <- PC
+    IR <- M[MAR], PC <- PC+1
+    MAR <- IR[11-0]
+    IR[15-12] {decode}
+    MBR <- M[MAR] {if needed}
+    ```
+- Computers execute millions of these cycles in <1 second
+
+
+### iii-2 Interrupts and I/O
+- InREG holds data transferred from input device (keyboard, mouse)
+- OutREG holds data ready to send to output device (monitor, speakers)
+- Timing very important
+- To avoid missing characters or reading characters multiple times:
+  - MARIE uses _interrupt driven I/O_
+  - CPU executes an I/O instruction and notifies appropriate I/O device
+  - CPU continues doing other stuff til device is ready
+  - Device sends an interrupt signal to CPU
+  - CPU processes interrupt and continues normal fetch-decode-execute cycle
+  - CPU deals with this by checking for interrupts at the beginning of each fetch-decode-execute cycle
+- Interrupt sent via special register or a status/flag register
+
+
+
+## iv. A Simple Program
