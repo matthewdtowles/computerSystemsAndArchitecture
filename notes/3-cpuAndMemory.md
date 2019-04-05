@@ -354,10 +354,11 @@ PC <- X
 - Summary of steps:
     ```
     MAR <- PC
-    IR <- M[MAR], PC <- PC+1
+    IR  <- M[MAR]
+    PC  <- PC+1
     MAR <- IR[11-0]
-    IR[15-12] {decode}
-    MBR <- M[MAR] {if needed}
+    IR[15-12]         {decode}
+    MBR <- M[MAR]     {if needed}
     ```
 - Computers execute millions of these cycles in <1 second
 
@@ -377,4 +378,110 @@ PC <- X
 
 
 
-## iv. A Simple Program
+## iv. Assemblers
+
+### iv-1 What Do Assemblers Do?
+- Assemblers read a source file of assembly (from programmer) and produce an object file of machine code
+
+## v. Assembly in MARIE Example
+
+- Some new commands:
+  - `AddI X` - Use value at X as address of data operand to add to AC
+    - X is used as a pointer basically
+  - `Clear`
+    - Put all zeros in AC
+  - `JnS X` - store the PC at X and jump to X+1
+  - `JumpI X` - Use value at X as address of location to jump to
+    - uses X as pointer like `AddI X`
+- Directives:
+  - Not translated to machine code
+  - Directives are:
+    - DEC for decimal number
+    - HEX
+    - / for comments
+- **Using a loop to add 5 numbers:**
+```
+Address Instruction Comments
+    100 Load         Addr /Load address of first number to be added
+    101 Store        Next /Store this address as our Next pointer
+    102 Load         Num /Load the number of items to be added
+    103 Subt         One /Decrement
+    104 Store        Ctr /Store this value in Ctr to control looping
+    105 Clear        /Clear AC
+Loop, 106 Load       Sum/Load the Sum into AC
+    107 AddI         Next /Add the value pointed to by location Next
+    108 Store        Sum/Store this Sum
+    109 Load         Next /Load Next
+    10A Add          One /Increment by one to point to next address
+    10B Store        Next /Store in our pointer Next
+    10C Load         Ctr /Load the loop control variable
+    10D Subt         One /Subtract one from the loop control variable
+    10E Store        Ctr /Store this new value in the loop control variable
+    10F Skipcond     00 /If control variable < 0, skip next instruction
+    110 Jump         Loop /Otherwise, go to Loop
+    111 Halt         /Terminate program
+Addr, 112 Hex        118 /Numbers to be summed start at location 118
+Next, 113 Hex         0 /A pointer to the next number to add
+Num, 114 Dec         5 /The number of values to add
+Sum, 115 Dec         0 /The sum
+Ctr, 116 Hex         0 /The loop control variable
+One, 117 Dec         1 /Used to increment and decrement by 1
+    118 Dec          10 /The values to be added together
+    119 Dec          15
+    11A Dec          20
+    11B Dec          25
+    11C Dec          30
+```
+
+
+## vi. Decoding - Hardwired vs. Microprogrammed Control
+
+- For each instruction, control unit causes CPU to execute steps correctly
+- Must have control signals to assert lines on digital components to make things happen as expected
+
+#### How do the control lines become asserted? (2 ways)
+1. **Hardwired Control**
+    - Physically connect all control lines to the actual machine instructions
+    - Instructions divided into fields
+    - Different bits in instruction combined through components to drive control lines
+    - Very fast
+    - Instruction set and control logic are tied together by special circuits
+    - Difficult to modify
+    - Difficult to design
+    - If changed, then physical components must be changed too
+        - Prohibitively expensive
+2. **Microprogramming**
+    - Uses software for control
+    - Machine instructions input to microprogram
+        - Instructions converted to control signals
+    - Acts as an interpreter
+    - Written in _microcode_
+    - Stored in _firmware_
+        - aka _Control store_
+    - One subroutine exists for each machine instruction
+    - Can be modified without change to hardware
+    - Flexible, simple in design
+    - Instructions go through another level of interpretation
+        - Slower than Hardwired control
+
+
+
+## vii. CISC and RISC
+
+- MARIE does not allow for passing parameters
+    - Issues result with reuse
+- Need a _stack_ to use params
+    - a list of items that can only be accessed from one end
+- **CISC (Complex Instruction Set Computer)**
+    - large number of instructions
+    - varying length of instructions
+    - complex layouts
+    - a small subset of complex instructions can slow the system
+    - one instruction could have many operations (loop)
+- **RISC (Reduced Instruction Set Computer)**
+    - Less complicated
+    - Small instruction set that is hardwired
+    - Number of instructions is reduced
+    - Simplifies instructions to improve execution time
+    - One instruction = one operation
+    - All instructions have same size
