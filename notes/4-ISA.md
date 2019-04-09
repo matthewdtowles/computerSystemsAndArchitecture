@@ -238,8 +238,55 @@
 - Provides exceptional flexibility
 
 #### Indexed and Based Addressing
-- 
+- Index Register has an offset that is added to the operand
+- E.g.: `Load X`, (R1 = 1) => effective address = X+1
+- Based Addressing just uses a Base Address Register instead
+- Both uses for accessing array elements, chars in strings
 
 #### Stack Addressing
+- Operand is on the stack
 
 #### Other Addressing Modes
+- Many variations or combinations of the above
+- Auto-increment and auto-decrement
+    - inc/dec the register used
+    - reduces code size and used in embedded systems
+
+#### Example with Different Addressing Modes
+```
+// instruction:
+Load 800
+
+// register
+R1: 800
+
+// memory
+___________
+Memory     |
+800  | 900 |
+...  |     |
+900  | 1000|
+...  |     |
+1000 | 500 |
+...  |     |
+1100 | 600 |
+...  |     |
+1600 | 700 |
+___________
+```
+Mode:  Value actually loaded into AC  
+- **Immediate: _800_**
+    - 800 from the instruction
+- **Direct: _900_**
+    - Memory at 800 = 900
+- **Indirect: _1000_**
+    - Memory at 800 = 900 which tells us to go to 900
+    - Memory at 900 = 1000
+- **Indexed: _700_**
+    - Instruction operand = 800
+    - 800 + R1 = 800 + 800 = 1600
+    - Go to 1600 => 700
+
+
+
+## iv. Instruction-Level Pipelining
