@@ -485,3 +485,31 @@ One, 117 Dec         1 /Used to increment and decrement by 1
     - Simplifies instructions to improve execution time
     - One instruction = one operation
     - All instructions have same size
+
+
+
+## Summary
+
+### CPU
+- #### Registers
+    - **PC** - program counter
+        - which memory location to go to next
+    - **IR** - instruction register
+        - instruction currently being executed
+    - **MAR** - memory address register
+        - which location in memory to access
+    - **MDR** - memory data register
+        - aka **MBR**
+        - data being set or taken from memory location
+    - **Accumulators**, **General-purpose registers**
+        - process data in CPU
+    - **Program status register**
+        - stores flags to keep track of special conditions
+    - **IOR** - I/O
+    - **SP** - stack pointer
+        - points to the top of the stack
+
+- #### ALU
+
+- #### Control Unit
+    - Fetch-Execute Instruction cycle
