@@ -290,3 +290,83 @@ Mode:  Value actually loaded into AC
 
 
 ## iv. Instruction-Level Pipelining
+- Pipelining refers to fetch-decode-execute cycle steps that are broken down into smaller steps that can be performed in parallel
+    - Result is faster execution
+- Mini-steps of fetch-decode-execute cycle:
+    1. Fetch instruction
+    2. Decode opcode
+    3. Calculate effective address of operands
+    4. Fetch operands
+    5. Execute instruction
+    6. Store result
+- Once fetch (s1) is completed, next instruction can be started on s1
+    - Computer can work on a different step for each different instruction
+- Pipeline conflicts prevent the goal of executing one instruction per clock cycle
+
+### iv-1 Pipeline Conflicts
+
+#### Resource Conflicts
+- One instruction storing to memory and another wants to fetch from memory at same time
+- Resolved by allowing executing instruction to continue
+- Some can be resolved by providing separate pathways
+
+#### Data Dependencies
+- When result of an instruction that is not available yet, is needed for a following instruction
+- Can be resolved with special hardware to detect this conflict
+    - Works by inserting a brief delay in the pipeline
+    - Could also work by rerouting through special path
+- Could be resolved if compiler is able to do it
+
+#### Conditional Branch Statements
+- These alter the flow of execution
+- Branch prediction guesses which instructions will be needed next
+- Compilers rearrange machine code to cause a delayed branch
+    - Attempt to reorder useful instructions or add no-op instructions to keep pipeline full
+- Another approach:  start fetches on both conditional paths and then just follow the true path
+
+
+
+## v. Other Notes and JVM
+- Compiled languages -> assembly -> machine code
+    - C, C++, Ada, FORTRAN, COBOL
+- Interpreted languages -> reinterpreted each time code is run
+    - platform independent
+    - PHP, LISP, Perl, Python, Tcl
+    - Slower than compiled (approx. 100x)
+- P-Code languages (compiled and interpreted) -> compiled to intermediate form (p-code) -> interpreted
+    - Slower than compiled (approx 10x)
+    - Python, Perl, Java
+
+#### JVM
+- .java file -> java compiler -> .class file (actual bytecode), (+ JAVA API files) -> JVM class loader -> JVM execution engine
+
+
+
+## vi. Module
+- Instruction set with _n_-bit op code may perform up to 2^ _n_ different operations.
+- 0 op:
+    - ```
+        PUSH
+        PUSH
+        MUL
+        ```
+    - Multiplies the top two operands on the stack
+- 1 op:
+    - `MUL A` accumulator = accumulator * A
+- 2 op:
+    - `MUL A, B` A = A * B
+- 3 op:
+    - `MUL A, B, C` A = B * C
+
+#### Boolean Logic Instructions
+- Operates on bit-by-bit basis
+- E.g.: 
+    - ```
+        A:   1011 0011
+        B:   1100 0101
+        ----------------
+        A.B: 1000 0001
+        ```
+        - AND result is 1 only if both bits are 1
+
+#### Single-Operand Manipulation Instructions
