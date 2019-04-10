@@ -370,3 +370,48 @@ Mode:  Value actually loaded into AC
         - AND result is 1 only if both bits are 1
 
 #### Single-Operand Manipulation Instructions
+- **Complementing**: flip all bits
+    - Complement of 1001 = 0110
+- **Negating**: complement and then increment by 1
+    - Negation of 1001 = 0110 + 1 = 0111
+
+#### Shift and Rotate Instructions
+- **Logical Shift Left**
+    - Shift each bit to the left by 1
+    - LSB vacancy filled by 0
+    - MSB is chopped off
+    - `1011 -> 0110`
+- **Logical Shift Right**
+    - MSB vacancy filled by 0
+    - LSB chopped off
+    - `1011 -> 0101`
+- **Arithmetic Shift Left**
+    - The two MSBs must be same to preserve sign of number
+    - Double the number when shifted
+    - `0011(3) -> 0110(6) -> overflow error`
+        - ASL on 0110 would cause the MSB to change which is a change in sign resulting in overflow.
+- **Arithmetic Shift Right**
+    - Performs integer division by 2 on number
+        - i.e.: 3/2 = 2
+    - `1010(-6) -> 1101(-3) -> 1110(-2) -> 1111(-1)`
+- **Rotate Left**
+    - Bits shifted to the left with MSB becoming LSB
+    - `1001 -> 0011 -> 0110 -> 1100 -> 1001`
+    - _n_ bits being shifted _n_ times results in original number
+- **Rotate Right**
+    - Just like left but to the right and so LSB becomes MSB
+    - `1001 -> 1100 -> 0110 -> 0011 -> 1001`
+
+#### Stack
+- Steps to easily convert to postfix:
+    - (3 + 4) * (5 + 6)
+    - (3 4 +) * (5 6 +)
+    - 3 4 + 5 6 + *
+    - Stack:
+        - `3`
+        - `4 3`
+        - `7`
+        - `5 7`
+        - `6 5 7`
+        - `11 7`
+        - `77`

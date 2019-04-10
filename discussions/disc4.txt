@@ -1,0 +1,38 @@
+Part I. Create an eight-bit word and then perform three of the shifting operations on it.
+
+0010 0101 (decimal +37)
+
+Logical Shift Left:  
+0010 0101 -> 0100 1010
+
+Arithmetic Shift Right:
+0010 0101 -> 0001 0010 
+
+Rotate Right:
+0010 0101 -> 1001 0010
+
+Part II. Evaluate a short algebraic expression using code with three-operand instructions.  The expression should have a minimum of three operands and 2 operators.  Operands may be alpha or numeric.
+
+You may only use registers A through F, plus X and T.
+Registers A through F may not be changed, i.e. their values are fixed.
+Register T may be used as a temporary register, and Register X must contain the final answer.
+
+Show the postfix for the expression, and then use a stack to evaluate the expression.
+
+X = A * (B / (C + D))
+ADD  X, C, D
+DIV  T, B, X
+MUL  X, A, T 
+
+Postfix:
+A B C D + / *
+
+Stack:
+PUSH / A | A 
+PUSH / B | A B
+PUSH / C | A B C
+PUSH / D | A B C D
+ADD / pop C and D, push the sum | A B C+D
+DIV / pop C+D and B, push (B/C+D) | A (B/C+D)
+MUL / pop (B/C+D) and A, push product (A*(B/C+D))
+POP / to get our answer 
