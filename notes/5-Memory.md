@@ -189,4 +189,53 @@
 
 
 ### iii-2 Replacement Policies
+- Replacement policy:  which block in cache should be replaced by new one
+- Direct mapping does not need replacement policy
+    - Location for each block is predetermined
+- **Optimal alrgorithm** is benchmark to measure all other replacement policy algorithms
+    - Has lowest _miss rate_
+        - Lowest number of times that we look into cache and do not find our block
+- Goal:  replace the block that will not be used for the longest amount of time
+- Example algorithms:
+    - **Least Recently Used** (LRU)
+        - Requires timestamps added to blocks to keep history of access to blocks
+            - This is very expensive
+            - There are ways to approximate this though
+    - **FIFO**
+    - **Randomly select** victim block
+        - LRU and FIFO can thrash (throwing out a block and bring it back repeatedly)
+        - Difficult to implement truly random
+        - May decrease avg performance
+
+
+### iii-3 Effective Access Time and Hit Ratio
+- **Effective Access Time (EAT)**:  average time per access in which memory performance is measured
+- Weighted avg using hit ratio and relative access times
+    - e.g.:  `cache access = 10ns;  main memory access time = 200ns;  cache hit rate = 99%;`
+        - `EAT = .99(10ns) + 0.01(200ns) = 9.9ns + 2ns = 11.9ns`
+- For a two-level memory:  `EAT = CacheHitRate * CacheAccessTime + (1 - CacheHitRate) * MainMemoryAccessTime`
+
+
+### iii-4 When Caching Breaks Down
+- Caching does not work well when programs exhibit bad locality
+- Object-oriented programming can cause programs to exhibit less than optimal locality
+- Another example of bad locality can be seen in two-dimensional array access
+    - If cache can hold all but one row of the array:
+    - And if a program accesses the array one row at a time, the first row access produces a miss, but once the block is transferred into cache, all subsequent accesses to that row are hits
+    - 5 x 4 array would produce 5 misses and 15 hits over 20 accesses
+
+
+### iii-5 Cache Write Policies
+- When a cache block is modified (dirty blocks of cache), write policy determines when main memory is updated to match
+- **Write-through** updates cache and memory simultaneously on every write
+    - Slower - requires memory access each write
+    - Ensures cache consistent with memory
+    - Most accesses are reads, so slow down negligible
+- **Write-back** updates memory when cache block will be removed from cache
+    - Faster
+    - Memory traffic reduced
+    - Downside if a process terminates/crashes before write to memory then data in cache may be lost
+
+
+## iv. Virtual Memory
 - 
