@@ -238,4 +238,66 @@
 
 
 ## iv. Virtual Memory
-- 
+- Virtual memory purpose:  use hard disk as extension of RAM
+    - Increases available address space
+- **Page file**:  area on hard disk used to hold chunk of main memory
+- All addressing issues handled by OS
+- Implemented with **paging**
+- **Paging**:  dividing main memory into fixed-size blocks and programs divided into same size blocks.
+    - The chunks are brought into memory ad-hoc
+- Every virtual address must be translated into a physical address
+- **Virtual address**:  program address process uses
+    - When CPU generates an address, it is in terms of virtual address space
+- **Physical address**: real address in physical memory
+- **Mapping**: How virtual address translated into physical
+- **Page frames**: chunks into which memory is divided (equal size chunks)
+- **Pages**: chunks which virtual memory is divided
+    - stored on disk til needed
+    - equal in size to a page frame
+- **Paging**: process of copying a virtual page from disk to a page frame in main memory
+- **Fragmentation**: memory that becomes unusable
+- **Page fault**: occurs when a requested page is not in memory and must be copied from disk to memory
+- When data is copied from disk to memory, entire block where data resides is copied (much like cache blocks)
+
+### iv-1 Paging
+- **Page table**: used to keep track of where pages of a process reside
+    - Each process has its own page table
+    - Page table stores physical location of each virtual page of process
+    - Number of rows = number of virtual pages in process
+    - If page of process not in main memory, valid bit is 0
+        - Otherwise, it is 1
+    - Each entry has:  valid bit and a frame number (+ may have others)
+- Leftover space in a page frame (physical) is unusable
+    - Only one page (virtual) per page frame (phys)
+- To accomplish address translation, virtual address divided into 2 fields:
+    1. **page field**
+    2. **offset field**
+- **What system does when accessing data at a given virtual address**: 
+    1. Extract page numbers
+    2. Extract offset
+    3. Translate page number -> physical page frame number via page table
+        1. Look up page number in page table
+        2. Check valid bit
+            1. If valid bit=0 -> page fault, OS intervenes to:
+                1. Locate desired page on disk
+                2. Find free page frame
+                    - May need to remove one to make space
+                3. Copy desired page into free page frame in memory
+                4. Update page table
+                5. Resume process
+            2. Otherwise, valid bit=1 and page is in memory
+                1. Replace virtual page number with frame number
+                2. Access data at offset in physical page frame 
+                    - Done by adding offset to frame for given virtual page
+- Example:
+    - Virtual address space = 2^8 words for a given process
+        - Addresses are 0 - 255 (0x00 - 0xFF)
+    - Physical memory 4 page frames (no cache)
+    - Pages = 32 words long
+    - Virtual addresses = 8 bits
+    - Physical addresses = 7 bits
+        - 4 frames * 32 words each = 128 words = 2^7, 7 bits
+    - Virtual address has 2 fields (sharing 8 bits)
+        - page field has 3 bits
+            - a 
+        - offset field = 5 bits
