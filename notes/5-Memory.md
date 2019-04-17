@@ -301,3 +301,40 @@
         - page field has 3 bits
             - a 
         - offset field = 5 bits
+- Larger page size => 
+    - fewer transfers from memory, smaller page table => 
+        - space saved in memory, but fragmentation increases
+        - could be transferring more unnecessary data as well
+
+### iv-2 Effective Access Time Using Paging
+- Time penalty for using virtual memory:
+    - Each memory access = 2 physical memory accesses
+        1. Reference page table
+        2. Reference actual data
+- **Translation Look-Aside Buffer (TLB)**: a cache for most recent page lookup values in a page table
+    - Each entry has virtual page number and physical page number
+- Using TLB:
+    1. Get page number from virtual address
+    2. Get offset from virtual address
+    3. Search for virtual page number in TLB
+    4. If virtual page number, page frame number found in TLB:
+        - Add offset to physical frame number and access the mem location
+    5. Otherwise, if TLB miss:
+        - Get frame number from page table
+        - If page in memory:  use corresponding frame number and add offset for the physical address
+    6. If page is not in main mem then generate page fault
+        - And restart access when page fault complete
+
+### iv-3 Segmentation
+- Another way to implement virtual memory (other than paging)
+- Virtual address space is divided into logical, variable-length units, or segments
+- Physical memory isn't really divided or partitioned into anything
+- When a segment is copied to physical mem: OS find chunk of free mem large enough for it
+- Each segment has:
+    - Base address:  location in memory
+    - Bounds limit:  size
+- Uses associated segment table in lieu of page table
+- **External fragmentation**: space is not contiguous
+    - It exists as a large number of small, unusable holes
+    - To combat external fragmentation, systems use garbage collection
+- **Internal fragmentation**:  system has over-allocated memory to a process that does not need it

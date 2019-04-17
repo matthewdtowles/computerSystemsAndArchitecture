@@ -1,0 +1,64 @@
+Cache and Memory Mapping
+
+Part I
+
+Consider a computer that you have used or now use. (You may make an assumption on word size if needed.)
+
+How large is the memory of the computer?
+	16 GiB = 2^34
+How long is a word in the computer above?
+	64 bits
+How many bits are required to address the bytes in that memory?
+	34 bits
+How many data lines are required to read data from the computer memory?
+	64
+
+Part II
+
+Does your computer have cache?
+	Yes
+If so how big is it?
+	L2: 1 MiB
+	L3: 8 MiB 
+How does your cache size compare with the size of main memory?
+	(2^34) / ((2^23) + (2^20)) is roughly 1820
+	Main memory is roughly 1820 times the size of the L2 and L3 cache combined.
+Do you know what kind of cache it is?
+	L2 and L3
+How did you find out about your computer's cache?
+	`wmic cpu get L2CacheSize, L3CacheSize` in windows 10 command prompt
+	Running command for L1CacheSize gave an error for an invalid query.
+Make an assumption that your cache is:
+	Two-way set-associative
+
+Determine the size of Tag, Set, and Word for 2-Way Set-Associative Cache.
+	Assuming 4 words per block
+	Address = 34 bits
+	(2^34) / (2^2) = 2^32 blocks 
+	L2 Cache = 2^20 bits 
+	(2^20) / (2^2) = 2^18 blocks / 2 = 2^17 sets in L2 Cache 
+	L3 Cache = 2^23 bits 
+	(2^23) / (2^2) = 2^21 blocks / 2 = 2^20 sets in L3 Cache 
+	2^21 > (2^20 + 2^17)
+	So 21 bits for set 
+	SET = 21 bits 
+	
+	Since there are 4 (2^2) words per block, 2 bits for Word
+	WORD = 2 bits
+	2 Blocks per set (2^1 = 2), 1 bit for set
+	
+	Tag = 34 - 21 - 2 = 11
+	
+	TAG = 11 | SET = 21 | WORD = 2
+
+Part III
+
+Given the following:
+
+Logical Memory size of 1000
+Physical Memory size of 2000
+Page (and frame) size of 100
+Block A contains data for a program
+Select Block A’s size and its starting point in both memories. Then write the page table for Block A based on your selections.  
+
+See below for the layout of both memories and an example of Block A of size 200.
