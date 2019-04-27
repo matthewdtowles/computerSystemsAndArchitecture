@@ -96,3 +96,35 @@
 - **Transfer time** = access_time + time to read data from disk
 - **Latency**: time taken for sector to move beneath r/w head after disk arm positioned over track
     - Latency = ( ((60 seconds / disk rotation speed) * (100 ms / 1 second)) / 2 )
+
+
+## iv. Optical Disks
+
+### iv-1 CD-ROM
+- Plastic disk with reflective aluminum film
+- Aluminum reflects light
+- Light from laser diode beneath disk
+- Reflected light passes thru a prism into a photodetector
+- Photodetector converts light to electrical signals
+- Electrical signals sent to decoder electronics
+- **Lands** and **pits** are flat and bump areas on disk
+    - Pits make 0s and lands make 1s
+- Tracks at center have same bit density as outer edge
+    - Unlike magnetic storage
+- Data stored in 2352-byte sectors
+- Sectors have 98 588-bit channel frames
+- Channel frames consist of:  synchronizing info, header, & 33 17-bit symbols (payload)
+    - 17-bit symbols encoded using an RLL(2,10) code called **EFM** (8 to 14 modulation)
+- Disk drive electronics interpret channel frames to make **small frames**
+- Small frames are 33 bytes wide
+    - 32 for user data
+    - 1 for subchannel info
+        - 8 subchannels: P,Q,R,S,T,U,V,W
+            - P denotes start/stop times
+            - Q has control info
+            - R,S,T,U,V,W only for audio applications
+
+### iv-2 DVD
+- Digital versatile disks
+- Quad-density cds
+- Rotate 3x faster than CDs
