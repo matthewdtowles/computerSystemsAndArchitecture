@@ -1,0 +1,55 @@
+The evolution of computer technology.
+
+Describe how the following concepts have evolved over the past 25 years to improve system performance:
+	RISC 
+	pipelining
+	cache memory
+	virtual memory 
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+Instructions
+
+- Investigate 
+	- the evolution of improving system performance
+	- current trends in improving system performance 
+		- RISC
+		- pipelining
+		- cache memory
+		- virtual memory
+	- conclusion: explicitly state the concept or approach that seems most important to you and explain your selection.
+- 2+ references 
+	- 1+ peer-reviewed journal
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+Submission of Paper
+
+- Provide a reference list at the end of the paper
+- APA style
+- 3 - 5 pages
+- 12 point font
+- one-inch margins
+- double spacing.
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+General outline:
+
+Intro
+	general on evolution of computers last 25 years 
+	thesis statement/claim
+Meat (2nd 3rd 4th 1st most impactful)
+	Cache
+	RISC
+	Pipelining
+	Virtual Memory
+Closing
+	wrap up/summarize
+	last punch of my final and clear winner
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+Potential Sources to use:
+
+* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * 
+
+Advances in science and technology eventually allowed for the advent of general purpose computers. One could make the argument that computer technology has evolved so much since then, that it aids advances in other fields. To understand how computers have evolved, it will be necessary to first understand some key concepts that. Doing so will allow us to understand how they work together and how they have changed. Specifically, we will examine how Reduced instruction set computer architectures (RISC), pipelining, cache, and virtual memory have improved system performance in computer technology. We will investigate each of the aforementioned concepts individually and how advances in their respective scopes have contributed to improvements in system performance. 
+
+Generally, microprocessor architectures are divided into two categories, RISC and CISC (Complex instruction set computers.) RISC has a simple and fixed-size instruction set in which only a few of those instructions access memory (Load and Store). Contrast this to CISC, which has a large number of instructions that vary in length. In RISC, one instruction is one operation which is not the case for CISC either. 
+
+The simplicity in RISC made room for more improvements in computer systems. 
